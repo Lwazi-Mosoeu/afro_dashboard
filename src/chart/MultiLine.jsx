@@ -38,57 +38,54 @@ const chartConfig = {
 
 export function MultiLine() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Line Chart - Multiple</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+    <Card className="w-full">
+      <CardHeader className="pb-2">
+        <CardTitle>Email and Soical Media</CardTitle>
+        <CardDescription>Visits from Email and Social Media</CardDescription>
       </CardHeader>
-      <div className="min-w-310 ">
-        <CardContent>
-          <ChartContainer config={chartConfig}>
-            <LineChart
-              accessibilityLayer
-              data={chartData}
-              margin={{
-                left: 12,
-                right: 12,
-              }}
-            >
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="month"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value) => value.slice(0, 3)}
-              />
-              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-              <Line
-                dataKey="email"
-                type="monotone"
-                stroke="var(--color-email)"
-                strokeWidth={2}
-                dot={false}
-              />
-              <Line
-                dataKey="social"
-                type="monotone"
-                stroke="var(--color-social)"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ChartContainer>
-        </CardContent>
-      </div>
-      <CardFooter>
+
+      <CardContent className="pt-0">
+        <ChartContainer config={chartConfig} className="w-full h-[220px]">
+          <LineChart
+            accessibilityLayer
+            data={chartData}
+            margin={{ left: 12, right: 12 }}
+          >
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <Line
+              dataKey="email"
+              type="monotone"
+              stroke="var(--color-email)"
+              strokeWidth={2}
+              dot={false}
+            />
+            <Line
+              dataKey="social"
+              type="monotone"
+              stroke="var(--color-social)"
+              strokeWidth={2}
+              dot={false}
+            />
+          </LineChart>
+        </ChartContainer>
+      </CardContent>
+
+      <CardFooter className="pt-2">
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+              {/*Footer<TrendingUp className="h-4 w-4" />*/}
             </div>
             <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              Showing total visitors for the last 6 months
+              {/*Footer<TrendingUp className="h-4 w-4" />*/}
             </div>
           </div>
         </div>

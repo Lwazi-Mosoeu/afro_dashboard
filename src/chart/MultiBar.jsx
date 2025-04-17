@@ -39,42 +39,41 @@ const chartConfig = {
 
 export function MultiBar() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Traffic Sources Comparison: direct vs referral</CardTitle>
+    <div className="h-full w-full">
+      <Card className="h-full w-full flex flex-col">
+        <CardHeader>
+          <CardTitle>Traffic Sources Comparison: direct vs referral</CardTitle>
+          <CardDescription>January - June 2024</CardDescription>
+        </CardHeader>
 
-        <CardDescription>January - June 2024</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="max-h-200 w-full">
-          <BarChart accessibilityLayer data={chartData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dashed" />}
-            />
+        <CardContent className="flex-1 w-full">
+          <ChartContainer config={chartConfig} className="h-full w-full">
+            <BarChart data={chartData} width={undefined} height={undefined}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="dashed" />}
+              />
+              <Bar dataKey="direct" fill="var(--color-direct)" radius={4} />
+              <Bar dataKey="referral" fill="var(--color-referral)" radius={4} />
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
 
-            <Bar dataKey="direct" fill="var(--color-direct)" radius={4} />
-
-            <Bar dataKey="referral" fill="var(--color-referral)" radius={4} />
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing traffic data for the first half of 2024
-        </div>{" "}
-      </CardFooter>
-    </Card>
+        <CardFooter className="flex-col items-start gap-2 text-sm">
+          <div className="flex gap-2 font-medium leading-none">
+            {/*Footer<TrendingUp className="h-4 w-4" />*/}
+          </div>
+          <div className="leading-none text-muted-foreground">{/*Footer*/}</div>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }

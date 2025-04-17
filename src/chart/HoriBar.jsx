@@ -46,82 +46,82 @@ const chartConfig = {
 
 export function HoriBar() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>User Engagement Across Features</CardTitle>{" "}
-        <CardDescription>
-          Active users and new signups for key product features
-        </CardDescription>{" "}
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart
-            accessibilityLayer
-            data={chartData}
-            layout="vertical"
-            margin={{ right: 16 }}
-          >
-            <CartesianGrid horizontal={false} />
-            <YAxis
-              dataKey="feature"
-              type="category"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-            />
-            <XAxis type="number" hide />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
-            />
-
-            <Bar
-              dataKey="activeUsers"
-              fill={chartConfig.activeUsers.color}
-              radius={4}
-              barSize={14}
+    <div className="h-full">
+      <Card className="h-full flex flex-col">
+        <CardHeader>
+          <CardTitle>User Engagement Across Features</CardTitle>{" "}
+          <CardDescription>
+            Active users and new signups for key product features
+          </CardDescription>{" "}
+        </CardHeader>
+        <CardContent className="flex-1">
+          <ChartContainer config={chartConfig} className="h-full w-full">
+            <BarChart
+              accessibilityLayer
+              data={chartData}
+              layout="vertical"
+              margin={{ right: 16 }}
             >
-              <LabelList
+              <CartesianGrid horizontal={false} />
+              <YAxis
                 dataKey="feature"
-                position="insideLeft"
-                offset={8}
-                className="fill-foreground"
-                fontSize={12}
+                type="category"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
               />
-              <LabelList
-                dataKey="activeUsers"
-                position="right"
-                offset={8}
-                className="fill-foreground"
-                fontSize={12}
+              <XAxis type="number" hide />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="line" />}
               />
-            </Bar>
 
-            <Bar
-              dataKey="newSignups"
-              fill={chartConfig.newSignups.color}
-              radius={4}
-              barSize={14}
-            >
-              <LabelList
+              <Bar
+                dataKey="activeUsers"
+                fill={chartConfig.activeUsers.color}
+                radius={4}
+                barSize={14}
+              >
+                <LabelList
+                  dataKey="feature"
+                  position="insideLeft"
+                  offset={8}
+                  className="fill-foreground"
+                  fontSize={12}
+                />
+                <LabelList
+                  dataKey="activeUsers"
+                  position="right"
+                  offset={8}
+                  className="fill-foreground"
+                  fontSize={12}
+                />
+              </Bar>
+
+              <Bar
                 dataKey="newSignups"
-                position="right"
-                offset={8}
-                className="fill-foreground"
-                fontSize={12}
-              />
-            </Bar>
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing performance for the top product features{" "}
-        </div>
-      </CardFooter>
-    </Card>
+                fill={chartConfig.newSignups.color}
+                radius={4}
+                barSize={14}
+              >
+                <LabelList
+                  dataKey="newSignups"
+                  position="right"
+                  offset={8}
+                  className="fill-foreground"
+                  fontSize={12}
+                />
+              </Bar>
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
+        <CardFooter className="flex-col items-start gap-2 text-sm">
+          <div className="flex gap-2 font-medium leading-none">
+            {/*Footer<TrendingUp className="h-4 w-4" />*/}
+          </div>
+          <div className="leading-none text-muted-foreground">{/*Footer*/}</div>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }

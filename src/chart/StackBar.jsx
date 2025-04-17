@@ -78,55 +78,57 @@ const chartConfig = {
 
 export function StackBar() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Support Ticket Analysis</CardTitle>
-        <CardDescription>
-          Monthly breakdown of support tickets by category
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip content={<ChartTooltipContent />} />
-            <ChartLegend content={<ChartLegendContent />} />
-            <Bar
-              dataKey="technical"
-              stackId="a"
-              fill="var(--color-technical)"
-              radius={[0, 0, 4, 4]}
-            />
-            <Bar
-              dataKey="billing"
-              stackId="a"
-              fill="var(--color-billing)"
-              radius={[0, 0, 0, 0]}
-            />
-            <Bar
-              dataKey="featureRequests"
-              stackId="a"
-              fill="var(--color-featureRequests)"
-              radius={[4, 4, 0, 0]}
-            />
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Feature requests up 77% <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Technical issues decreased by 42% since January
-        </div>
-      </CardFooter>
-    </Card>
+    <div className="h-full">
+      <Card className="h-full flex flex-col">
+        <CardHeader>
+          <CardTitle>Support Ticket Analysis</CardTitle>
+          <CardDescription>
+            Monthly breakdown of support tickets by category
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex-1">
+          <ChartContainer config={chartConfig} className="h-full w-full">
+            <BarChart accessibilityLayer data={chartData}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <ChartLegend content={<ChartLegendContent />} />
+              <Bar
+                dataKey="technical"
+                stackId="a"
+                fill="var(--color-technical)"
+                radius={[0, 0, 4, 4]}
+              />
+              <Bar
+                dataKey="billing"
+                stackId="a"
+                fill="var(--color-billing)"
+                radius={[0, 0, 0, 0]}
+              />
+              <Bar
+                dataKey="featureRequests"
+                stackId="a"
+                fill="var(--color-featureRequests)"
+                radius={[4, 4, 0, 0]}
+              />
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
+        <CardFooter className="flex-col items-start gap-2 text-sm">
+          <div className="flex gap-2 font-medium leading-none">
+            {/*Footer<TrendingUp className="h-4 w-4" />*/}
+          </div>
+          <div className="leading-none text-muted-foreground">
+            {/*Footer<TrendingUp className="h-4 w-4" />*/}
+          </div>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }

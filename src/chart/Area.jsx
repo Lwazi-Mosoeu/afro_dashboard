@@ -43,67 +43,69 @@ const chartConfig = {
 
 export function AreaLegend() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>User Growth Trends</CardTitle>
-        <CardDescription>
-          Monthly comparison of registered vs. active users
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <AreaChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
-            />
-            <Area
-              dataKey="activeUsers"
-              type="natural"
-              fill="var(--color-activeUsers)"
-              fillOpacity={0.4}
-              stroke="var(--color-activeUsers)"
-              stackId="a"
-            />
-            <Area
-              dataKey="registeredUsers"
-              type="natural"
-              fill="var(--color-registeredUsers)"
-              fillOpacity={0.4}
-              stroke="var(--color-registeredUsers)"
-              stackId="a"
-            />
-            <ChartLegend content={<ChartLegendContent />} />
-          </AreaChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Active users up 28.9% YoY <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              January - June 2024 • 65% activation rate
+    <div className="h-full">
+      <Card className="h-full flex flex-col">
+        <CardHeader>
+          <CardTitle>User Growth Trends</CardTitle>
+          <CardDescription>
+            Monthly comparison of registered vs. active users
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex-1">
+          <ChartContainer config={chartConfig} className="h-full w-full">
+            <AreaChart
+              accessibilityLayer
+              data={chartData}
+              margin={{
+                left: 12,
+                right: 12,
+              }}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="line" />}
+              />
+              <Area
+                dataKey="activeUsers"
+                type="natural"
+                fill="var(--color-activeUsers)"
+                fillOpacity={0.4}
+                stroke="var(--color-activeUsers)"
+                stackId="a"
+              />
+              <Area
+                dataKey="registeredUsers"
+                type="natural"
+                fill="var(--color-registeredUsers)"
+                fillOpacity={0.4}
+                stroke="var(--color-registeredUsers)"
+                stackId="a"
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+            </AreaChart>
+          </ChartContainer>
+        </CardContent>
+        <CardFooter>
+          <div className="flex w-full items-start gap-2 text-sm">
+            <div className="grid gap-2">
+              <div className="flex items-center gap-2 font-medium leading-none">
+                {/*Footer<TrendingUp className="h-4 w-4" />*/}
+              </div>
+              <div className="flex items-center gap-2 leading-none text-muted-foreground">
+                {/*Footer<TrendingUp className="h-4 w-4" />*/}
+              </div>
             </div>
           </div>
-        </div>
-      </CardFooter>
-    </Card>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }
