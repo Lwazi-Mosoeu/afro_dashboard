@@ -6,6 +6,7 @@ import TopBar from "./design/topBar";
 import Dashboard from "./Dashboard";
 import LoginForm from "./forms/LoginForm";
 import SignUpForm from "./forms/SignUpForm";
+import UserStats from "./pages/UserStats";
 
 function App() {
   return (
@@ -22,6 +23,15 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/user-stats"
+                element={
+                  <ProtectedRoute>
+                    <UserStats />
                   </ProtectedRoute>
                 }
               />

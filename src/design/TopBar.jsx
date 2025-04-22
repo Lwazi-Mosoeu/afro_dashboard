@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import LogoutDropdown from "@/components/ui/LogoutDropdown";
+import UserStatDropdown from "@/components/ui/UserStatDropdown";
 
 import {
   Menu,
@@ -28,9 +29,7 @@ const TopBar = () => {
 
       {/* Right side: 3x2 buttons */}
       <div className="grid grid-cols-3 grid-rows-2 gap-x-6 gap-y-2 pr-80">
-        <button className="w-10 h-10 bg-white rounded hover:bg-white flex items-center justify-center">
-          <LibraryBig className="w-5 h-5 text-black" />
-        </button>
+        <UserStatDropdown onNavigate={() => navigate("/user-stats")} />
         <button className="w-10 h-10 bg-white rounded hover:bg-white flex items-center justify-center">
           <LayoutGrid className="w-5 h-5 text-black" />
         </button>
