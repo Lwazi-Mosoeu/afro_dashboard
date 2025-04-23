@@ -1,52 +1,71 @@
 "use client";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-import { ChartContainer } from "@/components/ui/chart";
 
-const userLoginData = [
-  { name: "Jan", logins: 400 },
-  { name: "Feb", logins: 300 },
-  { name: "Mar", logins: 600 },
-  { name: "Apr", logins: 800 },
-  { name: "May", logins: 500 },
-  { name: "Jun", logins: 900 },
+import { TrendingUp } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+const chartData = [
+  { month: "January", desktop: 186 },
+  { month: "February", desktop: 305 },
+  { month: "March", desktop: 237 },
+  { month: "April", desktop: 73 },
+  { month: "May", desktop: 209 },
+  { month: "June", desktop: 214 },
 ];
 
-function BarChartSample() {
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "hsl(var(--chart-1))",
+  },
+};
+
+export function BarChartSample() {
   return (
-    <ChartContainer className="h-[400px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={userLoginData}
-          margin={{
-            top: 20,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar
-            dataKey="logins"
-            fill="#8884d8"
-            name="User Logins"
-            radius={[4, 4, 0, 0]}
-          />
-        </BarChart>
-      </ResponsiveContainer>
-    </ChartContainer>
+    <Card>
+      <CardHeader>
+        <CardTitle>Bar Chart</CardTitle>
+        <CardDescription>January - June 2024</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer config={chartConfig}>
+          <BarChart accessibilityLayer data={chartData}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8} />
+          </BarChart>
+        </ChartContainer>
+      </CardContent>
+      <CardFooter className="flex-col items-start gap-2 text-sm">
+        <div className="flex gap-2 font-medium leading-none">
+          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+        </div>
+        <div className="leading-none text-muted-foreground">
+          Showing total visitors for the last 6 months
+        </div>
+      </CardFooter>
+    </Card>
   );
 }
-export default BarChartSample;

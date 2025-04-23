@@ -2,7 +2,7 @@ import React from "react";
 
 import TableSample from "@/components/sample/TableSample";
 import PaginationSample from "@/components/sample/PaginationSample";
-import BarChartSample from "@/components/sample/BarChartSample";
+import { BarChartSample } from "@/components/sample/BarChartSample";
 
 const UserStats = () => {
   return (
@@ -41,7 +41,7 @@ const UserStats = () => {
 
         {/* Bar 3 */}
         <div className="bg-gray-600 flex-[3] rounded-md">
-          {/* <BarChartSample /> */}
+          <BarChartSample />
         </div>
       </div>
 
