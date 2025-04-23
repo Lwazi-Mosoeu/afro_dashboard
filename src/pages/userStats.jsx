@@ -8,48 +8,55 @@ const UserStats = () => {
   return (
     <div className="content-area pb-3 flex flex-col items-center">
       {/* Top block  */}
-      <div className="bg-gray-800 rounded-xl w-3/4 p-4 flex flex-col gap-3 h-[1200px]">
-        {/* Bar 1 & 2  */}
-        <div className="flex-[2] flex flex-col gap-3">
-          <div className="bg-gray-600 flex-1 rounded-md"></div>
-          <div className="flex flex-1 gap-3">
+      <div className="bg-gray-80 rounded-xl w-3/4 p-4 flex flex-col gap-3 h-[715px]">
+        <div className="flex-[1] flex flex-col gap-3">
+          {/* Top block - made smaller */}
+          <div className="bg-gray-50 h-24 rounded-md px-6 flex items-center justify-between">
+            <h2 className="text-gray-700 text-lg font-semibold">
+              Security Summary
+            </h2>
+            <h2 className="text-blue-500 text-lg font-semibold">Activities</h2>
+          </div>{" "}
+          {/* Card row - made smaller */}
+          <div className="flex gap-3 h-32">
             {/* Card 1 */}
-            <div className="bg-gray-600 flex-1 rounded-md p-4 flex flex-col items-center justify-center text-center">
-              <h3 className="text-gray-300 text-sm font-medium mb-2">
+            <div className="bg-gray-60 flex-1 rounded-md p-4 flex flex-col items-center justify-center text-center">
+              <h3 className="text-blue-300 text-sm font-medium mb-2">
                 User Sign-in
               </h3>
-              <p className="text-white text-4xl font-bold">375</p>
+              <p className="bg-gray-70 text-4xl font-bold">375</p>
             </div>
-
             {/* Card 2 */}
-            <div className="bg-gray-600 flex-1 rounded-md p-4 flex flex-col items-center justify-center text-center">
-              <h3 className="text-gray-300 text-sm font-medium mb-2">
+            <div className="bg-gray-60 flex-1 rounded-md p-4 flex flex-col items-center justify-center text-center">
+              <h3 className="text-blue-400 text-sm font-medium mb-2">
                 Logged Out Automatically
               </h3>
-              <p className="text-white text-4xl font-bold">302</p>
+              <p className="text-gray-900 text-4xl font-bold">302</p>
             </div>
-
             {/* Card 3 */}
-            <div className="bg-gray-600 flex-1 rounded-md p-4 flex flex-col items-center justify-center text-center">
-              <h3 className="text-gray-300 text-sm font-medium mb-2">
+            <div className="bg-gray-60 flex-1 rounded-md p-4 flex flex-col items-center justify-center text-center">
+              <h3 className="text-red-500 text-sm font-medium mb-2">
                 Failed Attempts
               </h3>
-              <p className="text-white text-4xl font-bold">6</p>
+              <p className="text-gray-900 text-4xl font-bold">6</p>
             </div>
           </div>
         </div>
-
-        {/* Bar 3 */}
-        <div className="bg-gray-600 flex-[3] rounded-md">
+        {/* Chart section */}
+        <div className="bg-gray-60 flex-[3] rounded-md">
           <BarChartSample />
         </div>
       </div>
 
       {/* Bottom block */}
-      <div className="bg-gray-800 rounded-xl w-3/4 h-[1000px] mt-8 p-4">
-        <div className="bg-gray-600 h-full w-full rounded-md p-4">
-          <TableSample />
-          <div className="mt-6">
+      <div className="bg-gray-50 rounded-xl w-3/4 h-[800px] mt-8 p-4">
+        <div className="bg-gray-50 h-full w-full rounded-md p-4 flex flex-col">
+          <div className="flex-grow overflow-hidden">
+            <TableSample />
+          </div>
+
+          {/* Pagination */}
+          <div className="mt-4">
             <PaginationSample />
           </div>
         </div>
