@@ -3,7 +3,6 @@ import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import LogoutDropdown from "@/components/ui/LogoutDropdown";
 import UserStatDropdown from "@/components/ui/UserStatDropdown";
-
 import {
   Menu,
   LibraryBig,
@@ -19,6 +18,16 @@ const TopBar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      // Optionally show error to user
+    }
+  };
+
   return (
     <div className="w-full h-30 bg-white fixed top-0 left-0 z-50 flex items-center justify-between px-6 text-white pl-50">
       {/* Left side: Icon + Logo */}
@@ -33,9 +42,7 @@ const TopBar = () => {
         <button className="w-10 h-10 bg-white rounded hover:bg-white flex items-center justify-center">
           <LayoutGrid className="w-5 h-5 text-black" />
         </button>
-        <LogoutDropdown
-          onLogout={() => (user ? logout() : navigate("/login"))}
-        />
+        <LogoutDropdown onLogout={handleLogout} />
         <button className="w-10 h-10 bg-white rounded hover:bg-white flex items-center justify-center">
           <LifeBuoy className="w-5 h-5 text-black" />
         </button>

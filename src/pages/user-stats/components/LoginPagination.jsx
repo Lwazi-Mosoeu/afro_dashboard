@@ -9,7 +9,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const PaginationSample = () => {
+const LoginPagination = () => {
   return (
     <Pagination>
       <PaginationContent>
@@ -30,4 +30,4 @@ const PaginationSample = () => {
   );
 };
 
-export default PaginationSample;
+export default LoginPagination;

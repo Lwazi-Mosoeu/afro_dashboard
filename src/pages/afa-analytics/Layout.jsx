@@ -1,10 +1,10 @@
-import { AreaLegend } from "@/chart/Area";
-import { BarCharts } from "@/chart/BarChart";
-import { HoriBar } from "@/chart/HoriBar";
-import { MultiBar } from "@/chart/MultiBar";
-import { MultiLine } from "@/chart/MultiLine";
-import { StackBar } from "@/chart/StackBar";
-import { KPICard } from "@/chart/kpi-card";
+import { AreaLegend } from "@/pages/afa-analytics/charts/Area";
+import { BarCharts } from "@/pages/afa-analytics/charts/BarChart";
+import { HoriBar } from "@/pages/afa-analytics/charts/HoriBar";
+import { MultiBar } from "@/pages/afa-analytics/charts/MultiBar";
+import { MultiLine } from "@/pages/afa-analytics/charts/MultiLine";
+import { StackBar } from "@/pages/afa-analytics/charts/StackBar";
+import { KPICard } from "@/pages/afa-analytics/charts/kpi-card";
 import { kpiData } from "@/data/kpiData";
 import React from "react";
 

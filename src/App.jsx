@@ -6,7 +6,7 @@ import TopBar from "./design/topBar";
 import Dashboard from "./Dashboard";
 import LoginForm from "./forms/LoginForm";
 import SignUpForm from "./forms/SignUpForm";
-import UserStats from "./pages/UserStats";
+import UserStats from "./pages/user-stats/userStats";
 
 function App() {
   return (

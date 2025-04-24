@@ -1,4 +1,3 @@
-// src/components/ui/LogoutDropdown.jsx
 import React from "react";
 import {
   DropdownMenu,
@@ -19,7 +18,13 @@ const LogoutDropdown = ({ onLogout }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
         <DropdownMenuItem
-          onClick={onLogout}
+          onClick={async () => {
+            try {
+              await onLogout();
+            } catch (error) {
+              console.error("Logout failed:", error);
+            }
+          }}
           className="flex items-center gap-2 text-red-600 focus:bg-red-100"
         >
           <LogOutIcon className="w-4 h-4" />

@@ -1,5 +1,5 @@
 import "./App.css";
-import Layout from "./design/layout";
+import Layout from "./pages/afa-analytics/Layout";
 import TopBar from "./design/topBar";
 
 function Dashboard() {

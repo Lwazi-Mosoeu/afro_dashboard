@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableHeader,
@@ -8,7 +8,36 @@ import {
   TableCell,
 } from "@/components/ui/table";
 
-const TableSample = () => {
+const LoginTable = () => {
+  const [loginHistory, setLoginHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLoginHistory = async () => {
+      try {
+        const response = await fetch("/api/login-history");
+        console.log(response);
+        const data = await response.json();
+        setLoginHistory(data);
+      } catch (error) {
+        console.error("Failed to fetch login history:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLoginHistory();
+  }, []);
+
+  const getStatusColor = (action) => {
+    return action === "login" ? "text-green-600" : "text-red-600";
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString();
+  };
+
   return (
     <div className="h-full w-full flex flex-col gap-4">
       {/* Top section */}
@@ -54,7 +83,7 @@ const TableSample = () => {
         <TableHeader className="sticky top-0 bg-gray-50 z-10">
           <TableRow className="h-16">
             <TableHead className="py-4 px-6 text-lg">Name</TableHead>
-            <TableHead className="py-4 px-6 text-lg">Email</TableHead>
+            <TableHead className="py-4 px-6 text-lg">Action</TableHead>
             <TableHead className="py-4 px-6 text-lg">Status</TableHead>
             <TableHead className="py-4 px-6 text-lg">Device</TableHead>
             <TableHead className="py-4 px-6 text-lg">Time</TableHead>
@@ -62,20 +91,43 @@ const TableSample = () => {
         </TableHeader>
 
         <TableBody>
-          {/* Sample rows */}
-          {Array.from({ length: 10 }).map((_, idx) => (
-            <TableRow key={idx}>
-              <TableCell className="py-3 px-6">John Doe</TableCell>
-              <TableCell className="py-3 px-6">john@example.com</TableCell>
-              <TableCell className="py-3 px-6">OK</TableCell>
-              <TableCell className="py-3 px-6">desktop</TableCell>
-              <TableCell className="py-3 px-6">Date</TableCell>
+          {loading ? (
+            <TableRow>
+              <TableCell colSpan={5} className="text-center py-4">
+                Loading...
+              </TableCell>
             </TableRow>
-          ))}
+          ) : loginHistory.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={5} className="text-center py-4">
+                {/* No login history found */}
+              </TableCell>
+            </TableRow>
+          ) : (
+            loginHistory.map((log) => (
+              <TableRow key={log.id}>
+                <TableCell className="py-3 px-6">{log.agent}</TableCell>
+                <TableCell className="py-3 px-6 capitalize">
+                  {log.action}
+                </TableCell>
+                <TableCell
+                  className={`py-3 px-6 ${getStatusColor(log.action)}`}
+                >
+                  {log.status}
+                </TableCell>
+                <TableCell className="py-3 px-6 capitalize">
+                  {log.device}
+                </TableCell>
+                <TableCell className="py-3 px-6">
+                  {formatDate(log.created_at)}
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
     </div>
   );
 };
 
-export default TableSample;
+export default LoginTable;

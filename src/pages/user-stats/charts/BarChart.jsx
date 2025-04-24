@@ -32,7 +32,7 @@ const chartConfig = {
   },
 };
 
-export function BarChartSample() {
+export function ActivityChart() {
   return (
     <Card>
       <CardHeader>

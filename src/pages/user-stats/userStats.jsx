@@ -1,8 +1,8 @@
 import React from "react";
 
-import TableSample from "@/components/sample/TableSample";
-import PaginationSample from "@/components/sample/PaginationSample";
-import { BarChartSample } from "@/components/sample/BarChartSample";
+import LoginTable from "@/pages/user-stats/components/LoginTable";
+import LoginPagination from "@/pages/user-stats/components/LoginPagination";
+import { ActivityChart } from "@/pages/user-stats/charts/BarChart";
 
 const UserStats = () => {
   return (
@@ -44,7 +44,7 @@ const UserStats = () => {
         </div>
         {/* Chart section */}
         <div className="bg-gray-60 flex-[3] rounded-md">
-          <BarChartSample />
+          <ActivityChart />
         </div>
       </div>
 
@@ -52,12 +52,12 @@ const UserStats = () => {
       <div className="bg-gray-50 rounded-xl w-3/4 h-[800px] mt-8 p-4">
         <div className="bg-gray-50 h-full w-full rounded-md p-4 flex flex-col">
           <div className="flex-grow overflow-hidden">
-            <TableSample />
+            <LoginTable />
           </div>
 
           {/* Pagination */}
           <div className="mt-4">
-            <PaginationSample />
+            <LoginPagination />
           </div>
         </div>
       </div>
