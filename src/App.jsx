@@ -1,4 +1,3 @@
-// Update App.js
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
 import ProtectedRoute from "@/context/ProtectedRoute";
@@ -8,7 +7,7 @@ import Dashboard from "./Dashboard";
 import LoginForm from "./forms/LoginForm";
 import SignUpForm from "./forms/SignUpForm";
 import UserStats from "./pages/user-stats/userStats";
-import ServiceIntervention from "./pages/service-intervention/ServiceIntervention"; // Import your new page component
+import ServiceIntervention from "./pages/service-intervention/ServiceIntervention.jsx";
 
 function App() {
   return (
@@ -28,6 +27,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+
               <Route
                 path="/user-stats"
                 element={
@@ -37,7 +37,7 @@ function App() {
                 }
               />
               <Route
-                path="/service-intervention"
+                path="/user-stats"
                 element={
                   <ProtectedRoute>
                     <ServiceIntervention />
