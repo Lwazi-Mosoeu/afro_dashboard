@@ -1,16 +1,15 @@
+// Update the TopBar.jsx
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import LogoutDropdown from "@/components/ui/LogoutDropdown";
-import UserStatDropdown from "@/components/ui/UserStatDropdown";
+import UserStatDropdown from "@/components/ui/UserStatDropdown"; // Updated component
 import {
   Menu,
-  LibraryBig,
   LayoutGrid,
   LifeBuoy,
   MessageSquareText,
   Bell,
-  UserRound,
 } from "lucide-react";
 import logo from "../assets/AfroCentric-logo.png";
 
@@ -24,7 +23,6 @@ const TopBar = () => {
       navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
-      // Optionally show error to user
     }
   };
 
@@ -38,7 +36,12 @@ const TopBar = () => {
 
       {/* Right side: 3x2 buttons */}
       <div className="grid grid-cols-3 grid-rows-2 gap-x-6 gap-y-2 pr-80">
-        <UserStatDropdown onNavigate={() => navigate("/user-stats")} />
+        <UserStatDropdown
+          onNavigateUserStats={() => navigate("/user-stats")}
+          onNavigateServiceIntervention={() =>
+            navigate("/service-intervention")
+          }
+        />
         <button className="w-10 h-10 bg-white rounded hover:bg-white flex items-center justify-center">
           <LayoutGrid className="w-5 h-5 text-black" />
         </button>

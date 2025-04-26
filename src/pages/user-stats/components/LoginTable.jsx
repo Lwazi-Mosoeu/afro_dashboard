@@ -15,7 +15,7 @@ const LoginTable = () => {
   useEffect(() => {
     const fetchLoginHistory = async () => {
       try {
-        const response = await fetch("/api/login-history");
+        const response = await fetch("http://localhost:5000/api/login-history");
         console.log(response);
         const data = await response.json();
         setLoginHistory(data);
