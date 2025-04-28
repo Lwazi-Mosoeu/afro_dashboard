@@ -1,8 +1,7 @@
 "use client";
 
 import { TrendingUp } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
-
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import {
   Card,
   CardContent,
@@ -13,26 +12,27 @@ import {
 } from "@/components/ui/card";
 import {
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { quarter: "2020Q3", pep: 50, prep: 15 },
+  { quarter: "2020Q4", pep: 50, prep: 15 },
+  { quarter: "2021Q1", pep: 50, prep: 15 },
+  { quarter: "2021Q2", pep: 50, prep: 15 },
 ];
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
+  pep: {
+    label: "PEP",
+    color: "#10b981",
   },
-  mobile: {
-    label: "Mobile",
-    color: "hsl(var(--chart-2))",
+  prep: {
+    label: "PrEP",
+    color: "#f59e0b",
   },
 };
 
@@ -40,37 +40,35 @@ export function ProgrameEnrolment() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Multiple</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Program Enrollment</CardTitle>
+        <CardDescription>Quarterly Overview</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="w-full h-[220px]">
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
+            <YAxis
+              domain={[0, 50]}
+              ticks={[0, 10, 20, 30, 40, 50]}
+              tickLine={false}
+              axisLine={false}
+            />
             <XAxis
-              dataKey="month"
+              dataKey="quarter"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+            <ChartLegend content={<ChartLegendContent />} />
+            <Bar dataKey="pep" fill="var(--color-pep)" radius={4} />
+            <Bar dataKey="prep" fill="var(--color-prep)" radius={4} />
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
     </Card>
   );
 }

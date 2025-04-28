@@ -19,28 +19,28 @@ import {
 } from "@/components/ui/chart";
 
 const chartData = [
-  { quarter: "2020Q3", current: 450, pre: 150 },
-  { quarter: "2020Q4", current: 600, pre: 200 },
-  { quarter: "2021Q1", current: 750, pre: 250 },
-  { quarter: "2021Q2", current: 900, pre: 300 },
+  { quarter: "2020Q3", patients: 900, total: 1200 },
+  { quarter: "2020Q4", patients: 1050, total: 1350 },
+  { quarter: "2021Q1", patients: 1200, total: 1500 },
+  { quarter: "2021Q2", patients: 1350, total: 1650 },
 ];
 
 const chartConfig = {
-  current: {
-    label: "Current on ongoing ART",
-    color: "#000000",
+  patients: {
+    label: "Patients With File Updates",
+    color: "#3b82f6",
   },
-  pre: {
-    label: "Pre ART",
-    color: "#ef4444",
+  total: {
+    label: "Total File Updates",
+    color: "#e5e7eb",
   },
 };
 
-export function AntiretroviralTreatment() {
+export function FileUpdates() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Antiretroviral Treatment Status</CardTitle>
+        <CardTitle>File Updates</CardTitle>
         <CardDescription>Quarterly Overview</CardDescription>
       </CardHeader>
       <CardContent>
@@ -48,8 +48,8 @@ export function AntiretroviralTreatment() {
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <YAxis
-              domain={[0, 1000]}
-              ticks={[0, 200, 400, 600, 800, 1000]}
+              domain={[0, 1500]}
+              ticks={[0, 300, 600, 900, 1200, 1500]}
               tickLine={false}
               axisLine={false}
             />
@@ -64,8 +64,8 @@ export function AntiretroviralTreatment() {
               content={<ChartTooltipContent indicator="dashed" />}
             />
             <ChartLegend content={<ChartLegendContent />} />
-            <Bar dataKey="current" fill="var(--color-current)" radius={4} />
-            <Bar dataKey="pre" fill="var(--color-pre)" radius={4} />
+            <Bar dataKey="patients" fill="var(--color-patients)" radius={4} />
+            <Bar dataKey="total" fill="var(--color-total)" radius={4} />
           </BarChart>
         </ChartContainer>
       </CardContent>

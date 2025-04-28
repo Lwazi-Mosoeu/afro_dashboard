@@ -1,16 +1,11 @@
-// Update the TopBar.jsx
+// src/design/topBar.jsx
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import LogoutDropdown from "@/components/ui/LogoutDropdown";
-import UserStatDropdown from "@/components/ui/UserStatDropdown"; // Updated component
-import {
-  Menu,
-  LayoutGrid,
-  LifeBuoy,
-  MessageSquareText,
-  Bell,
-} from "lucide-react";
+import UserStatDropdown from "@/components/ui/UserStatDropdown";
+import AfaAnalyticsDropdown from "@/components/ui/AfaAnalyticsDropdown";
+import { Menu, LifeBuoy, MessageSquareText, Bell } from "lucide-react";
 import logo from "../assets/AfroCentric-logo.png";
 
 const TopBar = () => {
@@ -42,9 +37,11 @@ const TopBar = () => {
             navigate("/service-intervention")
           }
         />
-        <button className="w-10 h-10 bg-white rounded hover:bg-white flex items-center justify-center">
-          <LayoutGrid className="w-5 h-5 text-black" />
-        </button>
+
+        <AfaAnalyticsDropdown
+          onNavigateAfaAnalytics={() => navigate("/")} // Navigates to root route
+        />
+
         <LogoutDropdown onLogout={handleLogout} />
         <button className="w-10 h-10 bg-white rounded hover:bg-white flex items-center justify-center">
           <LifeBuoy className="w-5 h-5 text-black" />

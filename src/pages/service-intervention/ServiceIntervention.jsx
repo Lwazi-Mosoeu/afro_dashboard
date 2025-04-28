@@ -2,6 +2,10 @@ import React from "react";
 import { HealthStatus } from "./charts/HealthStatus";
 import { AntiretroviralTreatment } from "./charts/AntiretroviralTreatment";
 import { ProgrameEnrolment } from "./charts/ProgrameEnrolment";
+import { FileUpdates } from "./charts/FileUpdates";
+import { RiskAndFollowUpContact } from "./charts/RiskAndFollowUpContact";
+import { AverageTSS } from "./charts/AverageTSS";
+import { KPICard } from "./components/Cards";
 
 const ServiceIntervention = () => {
   return (
@@ -14,22 +18,26 @@ const ServiceIntervention = () => {
           <div className="flex w-full h-160 gap-4">
             {/* Left side - 2x2 grid */}
             <div className="grid grid-cols-2 grid-rows-2 gap-5 flex-1">
-              <div className="bg-white w-full h-full rounded-xl"></div>
-              <div className="bg-white w-full h-full rounded-xl"></div>
-              <div className="bg-white w-full h-full rounded-xl"></div>
-              <div className="bg-white w-full h-full rounded-xl"></div>
+              <KPICard value="1,234" description="Total Patients" />
+              <KPICard value="876" description="Active Treatments" />
+              <KPICard value="95%" description="Adherence Rate" />
+              <KPICard value="32" description="New This Month" />
             </div>
             {/* Right side*/}
-            <div className="w-1/2 h-full bg-white rounded-xl"></div>
+            <div className="w-1/2 h-full bg-white rounded-xl">
+              <AverageTSS />
+            </div>
           </div>
 
           {/* Row 2*/}
           <div className="w-full h-80 bg-white rounded-xl">
-            Risk And Follow-Up Contact
+            <RiskAndFollowUpContact />
           </div>
 
           {/* Row 3*/}
-          <div className="w-full h-80 bg-white rounded-xl">File Updates</div>
+          <div className="w-full h-80 bg-white rounded-xl">
+            <FileUpdates />
+          </div>
 
           {/* Row 4*/}
           <div className="w-full h-80 bg-white rounded-xl">
@@ -38,12 +46,12 @@ const ServiceIntervention = () => {
 
           {/* Row 5*/}
           <div className="w-full h-80 bg-white rounded-xl">
-            {/* <Antiretroviral Treatment/> */}
+            <AntiretroviralTreatment />
           </div>
 
           {/* Row 6*/}
-          <div className="w-full h-80 bg-white rounded-xl">
-            {/* <HealthStatus /> */}
+          <div className="w-full">
+            <HealthStatus />
           </div>
         </div>
       </div>
