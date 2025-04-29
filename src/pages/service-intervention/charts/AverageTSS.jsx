@@ -27,11 +27,11 @@ const chartData = [
 const chartConfig = {
   attempts: {
     label: "Average TSS Contact Attempts",
-    color: "#000000", // black
+    color: "#000000",
   },
   successes: {
     label: "Average Successful TSS Contacts",
-    color: "#9333ea", // purple
+    color: "#9333ea",
   },
 };
 
