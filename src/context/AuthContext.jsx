@@ -1,18 +1,19 @@
 "use client";
 import { createContext, useContext, useState } from "react";
+import Cookies from "js-cookie";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = Cookies.get("authUser");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   const detectDevice = () => {
     const userAgent = navigator.userAgent.toLowerCase();
-    if (/mobile|android|iphone|ipad|ipod/.test(userAgent)) {
-      return "mobile";
-    } else if (/tablet|ipad|playbook|silk/.test(userAgent)) {
-      return "tablet";
-    }
+    if (/mobile|android|iphone|ipad|ipod/.test(userAgent)) return "mobile";
+    if (/tablet|ipad|playbook|silk/.test(userAgent)) return "tablet";
     return "desktop";
   };
 
@@ -21,20 +22,22 @@ export function AuthProvider({ children }) {
       const device = detectDevice();
       const res = await fetch("http://localhost:5000/api/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password, device }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        setUser({
+        const userData = {
           username: data.username,
           id: data.user_id,
+        };
+        setUser(userData);
+        Cookies.set("authUser", JSON.stringify(userData), {
+          expires: 7,
+          secure: true,
         });
-
         return true;
       } else {
         alert(data.error || "Login failed.");
@@ -51,16 +54,22 @@ export function AuthProvider({ children }) {
     try {
       const res = await fetch("http://localhost:5000/api/signup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        setUser({ username: newUser.username });
+        const userData = {
+          username: newUser.username,
+          id: data.id || null,
+        };
+        setUser(userData);
+        Cookies.set("authUser", JSON.stringify(userData), {
+          expires: 7,
+          secure: true,
+        });
         return true;
       } else {
         alert(data.error || "Signup failed.");
@@ -78,9 +87,7 @@ export function AuthProvider({ children }) {
       if (user) {
         await fetch("http://localhost:5000/api/logout", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             user_id: user.id,
             username: user.username,
@@ -92,6 +99,7 @@ export function AuthProvider({ children }) {
       console.error("Failed to record logout:", err);
     } finally {
       setUser(null);
+      Cookies.remove("authUser");
     }
   };
 
