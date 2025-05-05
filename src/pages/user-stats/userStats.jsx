@@ -1,7 +1,6 @@
 import React from "react";
 
 import LoginTable from "@/pages/user-stats/components/LoginTable";
-import LoginPagination from "@/pages/user-stats/components/LoginPagination";
 import { ActivityChart } from "@/pages/user-stats/charts/BarChart";
 
 const UserStats = () => {
@@ -53,11 +52,6 @@ const UserStats = () => {
         <div className="bg-gray-50 h-full w-full rounded-md p-4 flex flex-col">
           <div className="flex-grow overflow-hidden">
             <LoginTable />
-          </div>
-
-          {/* Pagination */}
-          <div className="mt-4">
-            <LoginPagination />
           </div>
         </div>
       </div>
