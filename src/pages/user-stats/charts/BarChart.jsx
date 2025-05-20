@@ -29,7 +29,6 @@ export function ActivityChart() {
     fetchLoginHistory();
   }, []);
 
-  // Process login data to count ALL login events per month
   const getMonthlyLoginCounts = () => {
     const months = [
       "January",

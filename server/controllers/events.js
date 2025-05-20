@@ -15,15 +15,26 @@ export const logEvent = async (req, res) => {
   }
 };
 
+// Update in controllers/events.js
 export const getLoginHistory = async (req, res) => {
   try {
-    const result = await pool.query(
-      `SELECT h.*, u.username 
-       FROM user_login_history h
-       JOIN users u ON h.user_id = u.id
-       ORDER BY h.created_at DESC
-       LIMIT 100`
-    );
+    let query = `
+      SELECT h.*, u.username 
+      FROM user_login_history h
+      JOIN users u ON h.user_id = u.id
+    `;
+
+    const params = [];
+
+    // Add WHERE clause if user_id is provided
+    if (req.query.user_id) {
+      query += ` WHERE h.user_id = $1`;
+      params.push(req.query.user_id);
+    }
+
+    query += ` ORDER BY h.created_at DESC LIMIT 100`;
+
+    const result = await pool.query(query, params);
     res.json(result.rows);
   } catch (err) {
     console.error("Login history error:", err);

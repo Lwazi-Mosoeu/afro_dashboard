@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+// Define form validation schema using Zod
 const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
@@ -22,6 +23,7 @@ const formSchema = z.object({
   email: z.string().email("Please enter a valid email"),
 });
 
+// ProfileForm component definition
 export default function ProfileForm() {
   const form = useForm({
     resolver: zodResolver(formSchema),

@@ -10,6 +10,7 @@ import SignUpForm from "./forms/SignUpForm";
 import UserStats from "./pages/user-stats/userStats";
 import ServiceIntervention from "./pages/service-intervention/ServiceIntervention";
 import PersistLogin from "./context/PersistLogin";
+import UserDetail from "@/pages/user-detail/UserDetail";
 
 function App() {
   return (
@@ -43,6 +44,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <ServiceIntervention />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/user/:userId"
+                  element={
+                    <ProtectedRoute>
+                      <UserDetail />
                     </ProtectedRoute>
                   }
                 />

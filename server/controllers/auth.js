@@ -1,4 +1,5 @@
 import pool from "../config/db.js";
+import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
   const { username, password } = req.body;
@@ -18,9 +19,11 @@ export const signup = async (req, res) => {
       return res.status(409).json({ error: "Username already exists" });
     }
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     await pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [
       username,
-      password,
+      hashedPassword,
     ]);
 
     res.status(201).json({ success: true, message: "User created!" });
@@ -38,16 +41,20 @@ export const login = async (req, res) => {
   }
 
   try {
-    const result = await pool.query(
-      "SELECT * FROM users WHERE username = $1 AND password = $2",
-      [username, password]
-    );
+    const result = await pool.query("SELECT * FROM users WHERE username = $1", [
+      username,
+    ]);
 
     if (result.rows.length === 0) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
     const user = result.rows[0];
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
 
     await pool.query(
       "INSERT INTO user_login_history (user_id, agent, action, device) VALUES ($1, $2, $3, $4)",

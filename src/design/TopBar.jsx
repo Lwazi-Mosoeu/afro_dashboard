@@ -38,11 +38,11 @@ const TopBar = () => {
           }
         />
 
-        <AfaAnalyticsDropdown
-          onNavigateAfaAnalytics={() => navigate("/")} // Navigates to root route
-        />
+        <AfaAnalyticsDropdown onNavigateAfaAnalytics={() => navigate("/")} />
 
-        <LogoutDropdown onLogout={handleLogout} />
+        {/* Pass both onLogout and user props */}
+        <LogoutDropdown onLogout={handleLogout} user={user} />
+
         <button className="w-10 h-10 bg-white rounded hover:bg-white flex items-center justify-center">
           <LifeBuoy className="w-5 h-5 text-black" />
         </button>

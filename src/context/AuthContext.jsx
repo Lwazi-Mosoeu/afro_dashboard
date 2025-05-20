@@ -33,6 +33,7 @@ export function AuthProvider({ children }) {
           username: data.username,
           id: data.user_id,
         };
+        //sucessfuly logged in
         setUser(userData);
         Cookies.set("authUser", JSON.stringify(userData), {
           expires: 7,
@@ -98,6 +99,7 @@ export function AuthProvider({ children }) {
     } catch (err) {
       console.error("Failed to record logout:", err);
     } finally {
+      //during logout removes user memory and cookie
       setUser(null);
       Cookies.remove("authUser");
     }
