@@ -1,6 +1,5 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import {
   Bar,
   BarChart,
@@ -9,7 +8,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-
 import {
   Card,
   CardContent,
@@ -24,7 +22,25 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
+// Type definitions
+interface ChartDataItem {
+  feature: string;
+  activeUsers: number;
+  newSignups: number;
+}
+
+interface ChartConfigItem {
+  label: string;
+  color: string;
+  cssVar?: string; // Optional as it's not used in this component
+}
+
+interface ChartConfig {
+  [key: string]: ChartConfigItem;
+}
+
+// Typed chart data
+const chartData: ChartDataItem[] = [
   { feature: "Dashboard", activeUsers: 480, newSignups: 124 },
   { feature: "Reports", activeUsers: 320, newSignups: 95 },
   { feature: "Settings", activeUsers: 270, newSignups: 110 },
@@ -33,7 +49,8 @@ const chartData = [
   { feature: "Integrations", activeUsers: 350, newSignups: 135 },
 ];
 
-const chartConfig = {
+// Typed chart configuration
+const chartConfig: ChartConfig = {
   activeUsers: {
     label: "Active Users",
     color: "#60a5fa",
@@ -49,10 +66,10 @@ export function HoriBar() {
     <div className="h-full">
       <Card className="h-full flex flex-col">
         <CardHeader>
-          <CardTitle>User Engagement Across Features</CardTitle>{" "}
+          <CardTitle>User Engagement Across Features</CardTitle>
           <CardDescription>
             Active users and new signups for key product features
-          </CardDescription>{" "}
+          </CardDescription>
         </CardHeader>
         <CardContent className="flex-1">
           <ChartContainer config={chartConfig} className="h-full w-full">
@@ -117,9 +134,11 @@ export function HoriBar() {
         </CardContent>
         <CardFooter className="flex-col items-start gap-2 text-sm">
           <div className="flex gap-2 font-medium leading-none">
-            {/*Footer<TrendingUp className="h-4 w-4" />*/}
+            {/* <TrendingUp className="h-4 w-4" /> */}
           </div>
-          <div className="leading-none text-muted-foreground">{/*Footer*/}</div>
+          <div className="leading-none text-muted-foreground">
+            {/* Footer content */}
+          </div>
         </CardFooter>
       </Card>
     </div>

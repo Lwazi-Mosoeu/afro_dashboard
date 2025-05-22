@@ -3,7 +3,19 @@
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export function KPICard({ data, className = "" }) {
+interface KPIData {
+  title: string;
+  value: string | number;
+  delta: string;
+  trend: "up" | "down";
+}
+
+interface KPICardProps {
+  data: KPIData;
+  className?: string;
+}
+
+export function KPICard({ data, className = "" }: KPICardProps) {
   const isPositive = data.trend === "up";
 
   return (
@@ -13,7 +25,7 @@ export function KPICard({ data, className = "" }) {
           {data.title}
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 flex flex-col ">
+      <CardContent className="flex-1 flex flex-col">
         <div className="text-2xl font-bold">{data.value}</div>
         <div
           className={`flex items-center text-xs ${

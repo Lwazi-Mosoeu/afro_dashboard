@@ -1,8 +1,6 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
-
 import {
   Card,
   CardContent,
@@ -17,7 +15,23 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
+interface ChartDataItem {
+  month: string;
+  direct: number;
+  referral: number;
+}
+
+interface ChartConfigItem {
+  label: string;
+  color: string;
+  cssVar?: string;
+}
+
+interface ChartConfig {
+  [key: string]: ChartConfigItem;
+}
+
+const chartData: ChartDataItem[] = [
   { month: "January", direct: 5000, referral: 1200 },
   { month: "February", direct: 5500, referral: 1400 },
   { month: "March", direct: 6000, referral: 1600 },
@@ -26,7 +40,7 @@ const chartData = [
   { month: "June", direct: 7500, referral: 2500 },
 ];
 
-const chartConfig = {
+const chartConfig: ChartConfig = {
   direct: {
     label: "Direct Traffic",
     color: "#3b82f6",
@@ -48,14 +62,14 @@ export function MultiBar() {
 
         <CardContent className="flex-1 w-full">
           <ChartContainer config={chartConfig} className="h-full w-full">
-            <BarChart data={chartData} width={undefined} height={undefined}>
+            <BarChart data={chartData}>
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="month"
                 tickLine={false}
                 tickMargin={10}
                 axisLine={false}
-                tickFormatter={(value) => value.slice(0, 3)}
+                tickFormatter={(value: string) => value.slice(0, 3)}
               />
               <ChartTooltip
                 cursor={false}
@@ -69,9 +83,11 @@ export function MultiBar() {
 
         <CardFooter className="flex-col items-start gap-2 text-sm">
           <div className="flex gap-2 font-medium leading-none">
-            {/*Footer<TrendingUp className="h-4 w-4" />*/}
+            {/* <TrendingUp className="h-4 w-4" /> */}
           </div>
-          <div className="leading-none text-muted-foreground">{/*Footer*/}</div>
+          <div className="leading-none text-muted-foreground">
+            {/* Footer content */}
+          </div>
         </CardFooter>
       </Card>
     </div>

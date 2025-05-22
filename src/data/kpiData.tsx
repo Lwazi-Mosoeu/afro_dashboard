@@ -1,4 +1,12 @@
-export const kpiData = {
+// src/data/kpiData.ts
+interface KPIData {
+  title: string;
+  value: string; // Changed from string|number since all values are strings
+  trend: "up" | "down";
+  delta: string;
+}
+
+export const kpiData: Record<string, KPIData> = {
   revenue: {
     title: "Total Revenue",
     value: "$45,231.89",

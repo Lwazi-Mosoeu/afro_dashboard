@@ -1,8 +1,6 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
-
 import {
   Card,
   CardContent,
@@ -16,7 +14,24 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-const chartData = [
+
+interface ChartDataItem {
+  month: string;
+  email: number;
+  social: number;
+}
+
+interface ChartConfigItem {
+  label: string;
+  color: string;
+  cssVar?: string;
+}
+
+interface ChartConfig {
+  [key: string]: ChartConfigItem;
+}
+
+const chartData: ChartDataItem[] = [
   { month: "January", email: 2500, social: 1800 },
   { month: "February", email: 2800, social: 2200 },
   { month: "March", email: 3000, social: 2500 },
@@ -25,7 +40,7 @@ const chartData = [
   { month: "June", email: 3800, social: 3300 },
 ];
 
-const chartConfig = {
+const chartConfig: ChartConfig = {
   email: {
     label: "Email Campaigns",
     color: "#ff7f50",
@@ -40,7 +55,7 @@ export function MultiLine() {
   return (
     <Card className="w-full">
       <CardHeader className="pb-2">
-        <CardTitle>Email and Soical Media</CardTitle>
+        <CardTitle>Email and Social Media</CardTitle>
         <CardDescription>Visits from Email and Social Media</CardDescription>
       </CardHeader>
 
@@ -57,7 +72,7 @@ export function MultiLine() {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value: string) => value.slice(0, 3)}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Line
@@ -82,10 +97,10 @@ export function MultiLine() {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              {/*Footer<TrendingUp className="h-4 w-4" />*/}
+              {/* <TrendingUp className="h-4 w-4" /> */}
             </div>
             <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              {/*Footer<TrendingUp className="h-4 w-4" />*/}
+              {/* <TrendingUp className="h-4 w-4" /> */}
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
+// import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 import {
@@ -17,7 +17,26 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
+// Define types for chart data
+type ChartDataItem = {
+  month: string;
+  signups: number;
+  churn: number;
+};
+
+// Define types for chart config
+type ChartConfigItem = {
+  label: string;
+  color: string;
+  cssVar: string;
+};
+
+type ChartConfig = {
+  [key: string]: ChartConfigItem;
+};
+
+// Typed chart data array
+const chartData: ChartDataItem[] = [
   { month: "Jan", signups: 140, churn: 25 },
   { month: "Feb", signups: 180, churn: 40 },
   { month: "Mar", signups: 160, churn: 35 },
@@ -26,7 +45,8 @@ const chartData = [
   { month: "Jun", signups: 240, churn: 30 },
 ];
 
-const chartConfig = {
+// Typed chart config object
+const chartConfig: ChartConfig = {
   signups: {
     label: "New Signups",
     color: "#3b82f6",
@@ -39,6 +59,7 @@ const chartConfig = {
   },
 };
 
+// Exported component
 export function BarCharts() {
   return (
     <div className="h-full">
@@ -58,7 +79,7 @@ export function BarCharts() {
                 tickLine={false}
                 tickMargin={10}
                 axisLine={false}
-                tickFormatter={(value) => value.slice(0, 3)}
+                tickFormatter={(value: string) => value.slice(0, 3)}
               />
               <ChartTooltip
                 cursor={false}
@@ -75,11 +96,10 @@ export function BarCharts() {
         </CardContent>
         <CardFooter className="flex-col items-start gap-2 text-sm">
           <div className="flex gap-2 font-medium leading-none">
-            {/*Footer<TrendingUp className="h-4 w-4" />*/}
+            {/* <TrendingUp className="h-4 w-4" /> */}
           </div>
           <div className="leading-none text-muted-foreground">
-            {" "}
-            {/*Footer*/}
+            {/* Footer */}
           </div>
         </CardFooter>
       </Card>

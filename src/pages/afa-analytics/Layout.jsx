@@ -31,8 +31,6 @@ const Layout = () => {
               <div className="bg-white w-full h-full rounded-xl"></div>
             </div>
             {/* Right side - large square */}
-
-            {/* <div className="flex-1 h-full"> */}
             <div className="w-1/2 h-full">
               <MultiBar />
             </div>

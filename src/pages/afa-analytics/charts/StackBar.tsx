@@ -1,8 +1,6 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
-
 import {
   Card,
   CardContent,
@@ -19,46 +17,33 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
-  {
-    month: "Jan",
-    technical: 142,
-    billing: 58,
-    featureRequests: 89,
-  },
-  {
-    month: "Feb",
-    technical: 128,
-    billing: 62,
-    featureRequests: 93,
-  },
-  {
-    month: "Mar",
-    technical: 165,
-    billing: 45,
-    featureRequests: 107,
-  },
-  {
-    month: "Apr",
-    technical: 118,
-    billing: 51,
-    featureRequests: 124,
-  },
-  {
-    month: "May",
-    technical: 95,
-    billing: 48,
-    featureRequests: 142,
-  },
-  {
-    month: "Jun",
-    technical: 82,
-    billing: 39,
-    featureRequests: 158,
-  },
+interface ChartDataItem {
+  month: string;
+  technical: number;
+  billing: number;
+  featureRequests: number;
+}
+
+interface ChartConfigItem {
+  label: string;
+  color: string;
+  cssVar: string;
+}
+
+interface ChartConfig {
+  [key: string]: ChartConfigItem;
+}
+
+const chartData: ChartDataItem[] = [
+  { month: "Jan", technical: 142, billing: 58, featureRequests: 89 },
+  { month: "Feb", technical: 128, billing: 62, featureRequests: 93 },
+  { month: "Mar", technical: 165, billing: 45, featureRequests: 107 },
+  { month: "Apr", technical: 118, billing: 51, featureRequests: 124 },
+  { month: "May", technical: 95, billing: 48, featureRequests: 142 },
+  { month: "Jun", technical: 82, billing: 39, featureRequests: 158 },
 ];
 
-const chartConfig = {
+const chartConfig: ChartConfig = {
   technical: {
     label: "Technical Issues",
     color: "#ef4444",
@@ -95,7 +80,7 @@ export function StackBar() {
                 tickLine={false}
                 tickMargin={10}
                 axisLine={false}
-                tickFormatter={(value) => value.slice(0, 3)}
+                tickFormatter={(value: string) => value.slice(0, 3)}
               />
               <ChartTooltip content={<ChartTooltipContent />} />
               <ChartLegend content={<ChartLegendContent />} />
@@ -122,10 +107,10 @@ export function StackBar() {
         </CardContent>
         <CardFooter className="flex-col items-start gap-2 text-sm">
           <div className="flex gap-2 font-medium leading-none">
-            {/*Footer<TrendingUp className="h-4 w-4" />*/}
+            {/* <TrendingUp className="h-4 w-4" /> */}
           </div>
           <div className="leading-none text-muted-foreground">
-            {/*Footer<TrendingUp className="h-4 w-4" />*/}
+            {/* <TrendingUp className="h-4 w-4" /> */}
           </div>
         </CardFooter>
       </Card>

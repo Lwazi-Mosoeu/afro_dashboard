@@ -1,8 +1,7 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
+// import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-
 import {
   Card,
   CardContent,
@@ -19,7 +18,26 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
+// Define types for chart data
+type ChartDataItem = {
+  month: string;
+  registeredUsers: number;
+  activeUsers: number;
+};
+
+// Define types for chart configuration
+type ChartConfigItem = {
+  label: string;
+  color: string;
+  cssVar: string;
+};
+
+type ChartConfig = {
+  [key: string]: ChartConfigItem;
+};
+
+// Typed chart data
+const chartData: ChartDataItem[] = [
   { month: "January", registeredUsers: 4200, activeUsers: 3800 },
   { month: "February", registeredUsers: 5100, activeUsers: 4100 },
   { month: "March", registeredUsers: 4800, activeUsers: 3950 },
@@ -28,7 +46,8 @@ const chartData = [
   { month: "June", registeredUsers: 7900, activeUsers: 4900 },
 ];
 
-const chartConfig = {
+// Typed chart configuration
+const chartConfig: ChartConfig = {
   registeredUsers: {
     label: "Registered Users",
     color: "#3b82f6",
@@ -67,7 +86,7 @@ export function AreaLegend() {
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
-                tickFormatter={(value) => value.slice(0, 3)}
+                tickFormatter={(value: string) => value.slice(0, 3)}
               />
               <ChartTooltip
                 cursor={false}
@@ -97,10 +116,10 @@ export function AreaLegend() {
           <div className="flex w-full items-start gap-2 text-sm">
             <div className="grid gap-2">
               <div className="flex items-center gap-2 font-medium leading-none">
-                {/*Footer<TrendingUp className="h-4 w-4" />*/}
+                {/* <TrendingUp className="h-4 w-4" /> */}
               </div>
               <div className="flex items-center gap-2 leading-none text-muted-foreground">
-                {/*Footer<TrendingUp className="h-4 w-4" />*/}
+                {/* <TrendingUp className="h-4 w-4" /> */}
               </div>
             </div>
           </div>
