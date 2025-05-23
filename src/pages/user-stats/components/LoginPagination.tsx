@@ -1,4 +1,4 @@
-import React from "react";
+//import React from "react";
 import {
   Pagination,
   PaginationContent,
@@ -9,7 +9,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const LoginPagination = () => {
+export const LoginPagination = () => {
   return (
     <Pagination>
       <PaginationContent>

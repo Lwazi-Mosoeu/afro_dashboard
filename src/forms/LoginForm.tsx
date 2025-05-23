@@ -17,11 +17,11 @@ export default function LoginForm() {
 
   if (loading) return null;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const username = formData.get("username");
-    const password = formData.get("password");
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
 
     const success = await login(username, password);
     if (success) {
@@ -30,7 +30,6 @@ export default function LoginForm() {
       alert("Invalid credentials");
     }
   };
-
   return (
     <div className="max-w-md mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6">Login</h2>

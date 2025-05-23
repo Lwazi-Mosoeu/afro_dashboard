@@ -14,8 +14,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ControllerRenderProps } from "react-hook-form";
 
-// Define form validation schema using Zod
 const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
@@ -23,9 +23,10 @@ const formSchema = z.object({
   email: z.string().email("Please enter a valid email"),
 });
 
-// ProfileForm component definition
+type FormValues = z.infer<typeof formSchema>;
+
 export default function ProfileForm() {
-  const form = useForm({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
@@ -33,7 +34,7 @@ export default function ProfileForm() {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: FormValues) => {
     console.log("Profile data submitted:", data);
   };
 
@@ -45,7 +46,11 @@ export default function ProfileForm() {
           <FormField
             control={form.control}
             name="username"
-            render={({ field }) => (
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<FormValues, "username">;
+            }) => (
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
@@ -61,7 +66,11 @@ export default function ProfileForm() {
           <FormField
             control={form.control}
             name="email"
-            render={({ field }) => (
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<FormValues, "email">;
+            }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>

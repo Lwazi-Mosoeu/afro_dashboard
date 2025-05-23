@@ -1,4 +1,3 @@
-// src/design/topBar.jsx
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +7,9 @@ import AfaAnalyticsDropdown from "@/components/ui/AfaAnalyticsDropdown";
 import { Menu, LifeBuoy, MessageSquareText, Bell } from "lucide-react";
 import logo from "../assets/AfroCentric-logo.png";
 
-const TopBar = () => {
+interface TopBarProps {}
+
+const TopBar: React.FC<TopBarProps> = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -23,13 +24,11 @@ const TopBar = () => {
 
   return (
     <div className="w-full h-30 bg-white fixed top-0 left-0 z-50 flex items-center justify-between px-6 text-white pl-50">
-      {/* Left side: Icon + Logo */}
       <div className="flex items-center gap-3">
         <Menu className="w-6 h-6 text-black" />
         <img src={logo} alt="AfroCentric Logo" className="h-24" />
       </div>
 
-      {/* Right side: 3x2 buttons */}
       <div className="grid grid-cols-3 grid-rows-2 gap-x-6 gap-y-2 pr-80">
         <UserStatDropdown
           onNavigateUserStats={() => navigate("/user-stats")}
@@ -40,7 +39,6 @@ const TopBar = () => {
 
         <AfaAnalyticsDropdown onNavigateAfaAnalytics={() => navigate("/")} />
 
-        {/* Pass both onLogout and user props */}
         <LogoutDropdown onLogout={handleLogout} user={user} />
 
         <button className="w-10 h-10 bg-white rounded hover:bg-white flex items-center justify-center">

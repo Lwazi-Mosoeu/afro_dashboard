@@ -1,13 +1,10 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
-
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -19,7 +16,25 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
+type ChartDataItem = {
+  year: string;
+  red: number;
+  black: number;
+  blue: number;
+  gray: number;
+};
+
+type ChartConfigItem = {
+  label: string;
+  color: string;
+  cssVar: string;
+};
+
+type ChartConfig = {
+  [key: string]: ChartConfigItem;
+};
+
+const chartData: ChartDataItem[] = [
   { year: "2017", red: 300, black: 240, blue: 250, gray: 260 },
   { year: "2018", red: 100, black: 250, blue: 260, gray: 270 },
   { year: "2019", red: 205, black: 245, blue: 255, gray: 265 },
@@ -28,7 +43,7 @@ const chartData = [
   { year: "Total", red: 200, black: 250, blue: 300, gray: 350 },
 ];
 
-const chartConfig = {
+const chartConfig: ChartConfig = {
   red: {
     label: "<200",
     color: "#ef4444",

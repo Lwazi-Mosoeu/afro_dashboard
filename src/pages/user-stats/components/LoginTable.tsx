@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Table,
   TableHeader,
@@ -8,8 +8,18 @@ import {
   TableCell,
 } from "@/components/ui/table";
 
-const LoginTable = () => {
-  const [loginHistory, setLoginHistory] = useState([]);
+interface LoginHistoryEntry {
+  id: string;
+  agent: string;
+  action: string;
+  status: string;
+  device: string;
+  created_at: string;
+  [key: string]: any;
+}
+
+export const LoginTable = () => {
+  const [loginHistory, setLoginHistory] = useState<LoginHistoryEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,21 +41,19 @@ const LoginTable = () => {
     fetchLoginHistory();
   }, []);
 
-  const getStatusColor = (action) => {
+  const getStatusColor = (action: string) => {
     return action === "login" ? "text-green-600" : "text-red-600";
   };
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString();
   };
 
-  // Filter data based on search input
   const filteredData = loginHistory.filter((log) =>
     log.agent?.toLowerCase().includes(filter.toLowerCase())
   );
 
-  // Pagination logic
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedData = filteredData.slice(

@@ -1,15 +1,14 @@
 "use client";
 
 import { Line, LineChart, ResponsiveContainer, XAxis } from "recharts";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
-const trendData = [
+interface ChartData {
+  month: string;
+  value: number;
+}
+
+const chartData: ChartData[] = [
   { month: "Jan", value: 186 },
   { month: "Feb", value: 305 },
   { month: "Mar", value: 237 },
@@ -18,26 +17,24 @@ const trendData = [
   { month: "Jun", value: 214 },
 ];
 
-export function KPICardWithTrend({ value, description }) {
+export function MiniLineChart() {
   return (
-    <Card className="h-full">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-3xl">{value}</CardTitle>
-        <CardDescription>{description}</CardDescription>
-      </CardHeader>
-      <CardContent className="pt-0">
+    <Card className="border-0 shadow-none">
+      <CardContent className="p-0">
         <div className="h-20 w-full">
+          {" "}
+          {/* Fixed height container */}
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
-              data={trendData}
-              margin={{ top: 0, right: 5, left: 5, bottom: 0 }}
+              data={chartData}
+              margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
             >
               <XAxis
                 dataKey="month"
                 tickLine={false}
                 axisLine={false}
                 tick={{ fontSize: 10 }}
-                height={15}
+                height={15} // Reduced XAxis height
               />
               <Line
                 type="monotone"

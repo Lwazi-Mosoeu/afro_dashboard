@@ -9,8 +9,26 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
+interface LoginHistoryEntry {
+  action: string;
+  created_at: string;
+  [key: string]: any;
+}
+
+interface ChartDataItem {
+  month: string;
+  count: number;
+}
+
+type ChartConfig = {
+  [key: string]: {
+    label: string;
+    color: string;
+  };
+};
+
 export function ActivityChart() {
-  const [loginHistory, setLoginHistory] = useState([]);
+  const [loginHistory, setLoginHistory] = useState<LoginHistoryEntry[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,7 +47,7 @@ export function ActivityChart() {
     fetchLoginHistory();
   }, []);
 
-  const getMonthlyLoginCounts = () => {
+  const getMonthlyLoginCounts = (): ChartDataItem[] => {
     const months = [
       "January",
       "February",
@@ -45,13 +63,11 @@ export function ActivityChart() {
       "December",
     ];
 
-    // Initialize counts for all months
     const monthlyCounts = months.map((month) => ({
       month,
       count: 0,
     }));
 
-    // Count ALL login events
     loginHistory.forEach((entry) => {
       if (entry.action === "login") {
         const date = new Date(entry.created_at);
@@ -65,7 +81,7 @@ export function ActivityChart() {
 
   const chartData = getMonthlyLoginCounts();
 
-  const chartConfig = {
+  const chartConfig: ChartConfig = {
     count: {
       label: "Login Events",
       color: "#60A5FA",
@@ -105,7 +121,7 @@ export function ActivityChart() {
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(month) => month.slice(0, 3)}
+              tickFormatter={(month: string) => month.slice(0, 3)}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Bar

@@ -1,12 +1,10 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,7 +16,23 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
+type ChartDataItem = {
+  result: string;
+  patients: number;
+  attempts: number;
+  successes: number;
+};
+
+type ChartConfigItem = {
+  label: string;
+  color: string;
+};
+
+type ChartConfig = {
+  [key: string]: ChartConfigItem;
+};
+
+const chartData: ChartDataItem[] = [
   {
     result: "Result Good",
     patients: 450,
@@ -39,7 +53,7 @@ const chartData = [
   },
 ];
 
-const chartConfig = {
+const chartConfig: ChartConfig = {
   patients: {
     label: "Patient Number",
     color: "#9ca3af",
@@ -84,24 +98,9 @@ export function RiskAndFollowUpContact() {
               content={<ChartTooltipContent indicator="dashed" />}
             />
             <ChartLegend content={<ChartLegendContent />} />
-            <Bar
-              dataKey="patients"
-              fill="var(--color-patients)"
-              radius={4}
-              // barSize={30}
-            />
-            <Bar
-              dataKey="attempts"
-              fill="var(--color-attempts)"
-              radius={4}
-              // barSize={30}
-            />
-            <Bar
-              dataKey="successes"
-              fill="var(--color-successes)"
-              radius={4}
-              // barSize={20}
-            />
+            <Bar dataKey="patients" fill="var(--color-patients)" radius={4} />
+            <Bar dataKey="attempts" fill="var(--color-attempts)" radius={4} />
+            <Bar dataKey="successes" fill="var(--color-successes)" radius={4} />
           </BarChart>
         </ChartContainer>
       </CardContent>

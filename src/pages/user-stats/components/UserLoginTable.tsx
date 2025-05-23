@@ -1,4 +1,3 @@
-// src/pages/user-stats/components/UserLoginTable.jsx
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -9,21 +8,39 @@ import {
   TableCell,
 } from "@/components/ui/table";
 
-const UserLoginTable = ({ userId }) => {
-  console.log("Received userId:", userId); // Debug log
+interface UserDetails {
+  username: string;
+  created_at: string;
+  [key: string]: any;
+}
 
-  const [loginHistory, setLoginHistory] = useState([]);
+interface LoginHistoryEntry {
+  id: string;
+  action: string;
+  status: string;
+  device: string;
+  created_at: string;
+  [key: string]: any;
+}
+
+interface UserLoginTableProps {
+  userId: string;
+}
+
+const UserLoginTable: React.FC<UserLoginTableProps> = ({ userId }) => {
+  console.log("Received userId:", userId);
+
+  const [loginHistory, setLoginHistory] = useState<LoginHistoryEntry[]>([]);
   const [loading, setLoading] = useState(true);
-  const [userDetails, setUserDetails] = useState(null);
+  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
 
   useEffect(() => {
-    if (!userId) return; // Guard clause if userId is missing
+    if (!userId) return;
 
     const fetchData = async () => {
       try {
         setLoading(true);
 
-        // Fetch user details
         const userRes = await fetch(
           `http://localhost:5000/api/users/${userId}`
         );
@@ -31,7 +48,6 @@ const UserLoginTable = ({ userId }) => {
         const userData = await userRes.json();
         setUserDetails(userData);
 
-        // Fetch login history
         const historyRes = await fetch(
           `http://localhost:5000/api/login-history?user_id=${userId}`
         );
@@ -49,11 +65,11 @@ const UserLoginTable = ({ userId }) => {
     fetchData();
   }, [userId]);
 
-  const getStatusColor = (action) => {
+  const getStatusColor = (action: string) => {
     return action === "login" ? "text-green-600" : "text-red-600";
   };
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleString();
   };
 

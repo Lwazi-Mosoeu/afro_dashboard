@@ -1,12 +1,10 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,13 +16,28 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
+type ChartDataItem = {
+  result: string;
+  attempts: number;
+  successes: number;
+};
+
+type ChartConfigItem = {
+  label: string;
+  color: string;
+};
+
+type ChartConfig = {
+  [key: string]: ChartConfigItem;
+};
+
+const chartData: ChartDataItem[] = [
   { result: "Result Good", attempts: 3.2, successes: 2.8 },
   { result: "Result Poor", attempts: 4.5, successes: 2.1 },
   { result: "Unable to Assess", attempts: 1.8, successes: 0.5 },
 ];
 
-const chartConfig = {
+const chartConfig: ChartConfig = {
   attempts: {
     label: "Average TSS Contact Attempts",
     color: "#000000",

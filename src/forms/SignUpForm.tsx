@@ -4,16 +4,21 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+interface SignUpCredentials {
+  username: string;
+  password: string;
+}
+
 export default function SignUpForm() {
   const { signUp } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const credentials = {
-      username: formData.get("username"),
-      password: formData.get("password"),
+    const formData = new FormData(e.currentTarget);
+    const credentials: SignUpCredentials = {
+      username: formData.get("username") as string,
+      password: formData.get("password") as string,
     };
 
     const success = await signUp(credentials);

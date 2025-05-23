@@ -1,12 +1,10 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,29 +16,44 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
-  { quarter: "2020Q3", pep: 50, prep: 15 },
-  { quarter: "2020Q4", pep: 50, prep: 15 },
-  { quarter: "2021Q1", pep: 50, prep: 15 },
-  { quarter: "2021Q2", pep: 50, prep: 15 },
+type ChartDataItem = {
+  quarter: string;
+  patients: number;
+  total: number;
+};
+
+type ChartConfigItem = {
+  label: string;
+  color: string;
+};
+
+type ChartConfig = {
+  [key: string]: ChartConfigItem;
+};
+
+const chartData: ChartDataItem[] = [
+  { quarter: "2020Q3", patients: 900, total: 1200 },
+  { quarter: "2020Q4", patients: 1050, total: 1350 },
+  { quarter: "2021Q1", patients: 1200, total: 1500 },
+  { quarter: "2021Q2", patients: 1350, total: 1650 },
 ];
 
-const chartConfig = {
-  pep: {
-    label: "PEP",
-    color: "#10b981",
+const chartConfig: ChartConfig = {
+  patients: {
+    label: "Patients With File Updates",
+    color: "#3b82f6",
   },
-  prep: {
-    label: "PrEP",
-    color: "#f59e0b",
+  total: {
+    label: "Total File Updates",
+    color: "#e5e7eb",
   },
 };
 
-export function ProgrameEnrolment() {
+export function FileUpdates() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Program Enrollment</CardTitle>
+        <CardTitle>File Updates</CardTitle>
         <CardDescription>Quarterly Overview</CardDescription>
       </CardHeader>
       <CardContent>
@@ -48,8 +61,8 @@ export function ProgrameEnrolment() {
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <YAxis
-              domain={[0, 50]}
-              ticks={[0, 10, 20, 30, 40, 50]}
+              domain={[0, 1500]}
+              ticks={[0, 300, 600, 900, 1200, 1500]}
               tickLine={false}
               axisLine={false}
             />
@@ -64,8 +77,8 @@ export function ProgrameEnrolment() {
               content={<ChartTooltipContent indicator="dashed" />}
             />
             <ChartLegend content={<ChartLegendContent />} />
-            <Bar dataKey="pep" fill="var(--color-pep)" radius={4} />
-            <Bar dataKey="prep" fill="var(--color-prep)" radius={4} />
+            <Bar dataKey="patients" fill="var(--color-patients)" radius={4} />
+            <Bar dataKey="total" fill="var(--color-total)" radius={4} />
           </BarChart>
         </ChartContainer>
       </CardContent>

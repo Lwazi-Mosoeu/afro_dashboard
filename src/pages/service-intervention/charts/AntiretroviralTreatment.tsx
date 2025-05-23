@@ -1,12 +1,10 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,14 +16,29 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
+type ChartDataItem = {
+  quarter: string;
+  current: number;
+  pre: number;
+};
+
+type ChartConfigItem = {
+  label: string;
+  color: string;
+};
+
+type ChartConfig = {
+  [key: string]: ChartConfigItem;
+};
+
+const chartData: ChartDataItem[] = [
   { quarter: "2020Q3", current: 450, pre: 150 },
   { quarter: "2020Q4", current: 600, pre: 200 },
   { quarter: "2021Q1", current: 750, pre: 250 },
   { quarter: "2021Q2", current: 900, pre: 300 },
 ];
 
-const chartConfig = {
+const chartConfig: ChartConfig = {
   current: {
     label: "Current on ongoing ART",
     color: "#000000",

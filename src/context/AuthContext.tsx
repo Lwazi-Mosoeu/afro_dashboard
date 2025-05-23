@@ -1,23 +1,43 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 import Cookies from "js-cookie";
 
-const AuthContext = createContext();
+interface User {
+  username: string;
+  id: string | null;
+}
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
+interface AuthContextType {
+  user: User | null;
+  login: (username: string, password: string) => Promise<boolean>;
+  logout: () => Promise<void>;
+  signUp: (newUser: { username: string; password: string }) => Promise<boolean>;
+  loading?: boolean;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export function AuthProvider({ children }: AuthProviderProps) {
+  const [user, setUser] = useState<User | null>(() => {
     const savedUser = Cookies.get("authUser");
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  const detectDevice = () => {
+  const detectDevice = (): string => {
     const userAgent = navigator.userAgent.toLowerCase();
     if (/mobile|android|iphone|ipad|ipod/.test(userAgent)) return "mobile";
     if (/tablet|ipad|playbook|silk/.test(userAgent)) return "tablet";
     return "desktop";
   };
 
-  const login = async (username, password) => {
+  const login = async (
+    username: string,
+    password: string
+  ): Promise<boolean> => {
     try {
       const device = detectDevice();
       const res = await fetch("http://localhost:5000/api/login", {
@@ -29,11 +49,10 @@ export function AuthProvider({ children }) {
       const data = await res.json();
 
       if (res.ok) {
-        const userData = {
+        const userData: User = {
           username: data.username,
           id: data.user_id,
         };
-        //sucessfuly logged in
         setUser(userData);
         Cookies.set("authUser", JSON.stringify(userData), {
           expires: 7,
@@ -51,7 +70,10 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const signUp = async (newUser) => {
+  const signUp = async (newUser: {
+    username: string;
+    password: string;
+  }): Promise<boolean> => {
     try {
       const res = await fetch("http://localhost:5000/api/signup", {
         method: "POST",
@@ -62,7 +84,7 @@ export function AuthProvider({ children }) {
       const data = await res.json();
 
       if (res.ok) {
-        const userData = {
+        const userData: User = {
           username: newUser.username,
           id: data.id || null,
         };
@@ -83,7 +105,7 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const logout = async () => {
+  const logout = async (): Promise<void> => {
     try {
       if (user) {
         await fetch("http://localhost:5000/api/logout", {
@@ -99,7 +121,6 @@ export function AuthProvider({ children }) {
     } catch (err) {
       console.error("Failed to record logout:", err);
     } finally {
-      //during logout removes user memory and cookie
       setUser(null);
       Cookies.remove("authUser");
     }
@@ -112,4 +133,10 @@ export function AuthProvider({ children }) {
   );
 }
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
