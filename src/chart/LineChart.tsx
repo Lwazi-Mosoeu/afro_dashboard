@@ -1,6 +1,6 @@
+// src/components/LineChartCard.tsx
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 
 import {
@@ -17,7 +17,13 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
+interface ChartDatum {
+  month: string;
+  revenue: number;
+  satisfaction: number;
+}
+
+const chartData: ChartDatum[] = [
   { month: "January", revenue: 3200, satisfaction: 70 },
   { month: "February", revenue: 3800, satisfaction: 75 },
   { month: "March", revenue: 4200, satisfaction: 78 },
@@ -41,8 +47,8 @@ export function LineChartCard() {
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle>Revenue & Satisfaction Over Time</CardTitle>{" "}
-        <CardDescription>January - June 2024</CardDescription>{" "}
+        <CardTitle>Revenue & Satisfaction Over Time</CardTitle>
+        <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent className="h-64">
         <ChartContainer className="h-full w-full" config={chartConfig}>
@@ -53,13 +59,12 @@ export function LineChartCard() {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value: string) => value.slice(0, 3)}
             />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-
             <Line
               dataKey="revenue"
               type="natural"
@@ -67,7 +72,6 @@ export function LineChartCard() {
               strokeWidth={2}
               dot={false}
             />
-
             <Line
               dataKey="satisfaction"
               type="natural"
@@ -80,9 +84,10 @@ export function LineChartCard() {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          {/*Footer<TrendingUp className="h-4 w-4" />*/}
+          {/* Footer content */}
+          {/* <TrendingUp className="h-4 w-4" /> */}
         </div>
-        <div className="leading-none text-muted-foreground">{/*Footer*/}</div>{" "}
+        <div className="leading-none text-muted-foreground">{/* Footer */}</div>
       </CardFooter>
     </Card>
   );

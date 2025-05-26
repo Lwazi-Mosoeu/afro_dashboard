@@ -1,6 +1,19 @@
-import pool from "../config/db.js";
+import { Request, Response } from "express";
+import pool from "../config/db";
 
-export const logEvent = async (req, res) => {
+interface EventRequest extends Request {
+  body: {
+    user_id?: number;
+    agent?: string;
+    action?: string;
+    device?: string;
+  };
+  query: {
+    user_id?: string;
+  };
+}
+
+export const logEvent = async (req: EventRequest, res: Response) => {
   const { user_id, agent, action, device } = req.body;
 
   try {
@@ -15,8 +28,7 @@ export const logEvent = async (req, res) => {
   }
 };
 
-// Update in controllers/events.js
-export const getLoginHistory = async (req, res) => {
+export const getLoginHistory = async (req: EventRequest, res: Response) => {
   try {
     let query = `
       SELECT h.*, u.username 
@@ -24,9 +36,8 @@ export const getLoginHistory = async (req, res) => {
       JOIN users u ON h.user_id = u.id
     `;
 
-    const params = [];
+    const params: (string | number)[] = [];
 
-    // Add WHERE clause if user_id is provided
     if (req.query.user_id) {
       query += ` WHERE h.user_id = $1`;
       params.push(req.query.user_id);

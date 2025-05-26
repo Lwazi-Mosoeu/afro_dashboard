@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --loader ts-node/esm server.ts",
+    "dev": "nodemon --exec node --loader ts-node/esm server.ts",
+    "build": "tsc",
+    "serve": "node dist/server.ts"
   },
   "keywords": [],
   "author": "",

@@ -1,6 +1,6 @@
-import "./App.css";
+//import "./App.css";
 import Layout from "./pages/afa-analytics/Layout";
-import TopBar from "./design/topBar";
+import TopBar from "./design/TopBar";
 
 function Dashboard() {
   return (

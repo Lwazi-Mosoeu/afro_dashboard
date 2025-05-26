@@ -1,9 +1,9 @@
-// src/App.js
+// src/App.tsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "@/context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "@/context/ProtectedRoute";
-import "./App.css";
-import TopBar from "./design/topBar";
+// import "./App.css";
+import TopBar from "./design/TopBar";
 import Dashboard from "./Dashboard";
 import LoginForm from "./forms/LoginForm";
 import SignUpForm from "./forms/SignUpForm";
@@ -12,7 +12,7 @@ import ServiceIntervention from "./pages/service-intervention/ServiceInterventio
 import PersistLogin from "./context/PersistLogin";
 import UserDetail from "@/pages/user-detail/UserDetail";
 
-function App() {
+const App: React.FC = () => {
   return (
     <AuthProvider>
       <PersistLogin>
@@ -62,6 +62,6 @@ function App() {
       </PersistLogin>
     </AuthProvider>
   );
-}
+};
 
 export default App;

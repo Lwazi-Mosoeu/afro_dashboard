@@ -1,8 +1,9 @@
 import express from "express";
-import { applyMiddleware } from "./config/middleware.js";
-import authRoutes from "./routes/auth.js";
-import eventRoutes from "./routes/events.js";
-import userRoutes from "./routes/users.js";
+import { applyMiddleware } from "./config/middleware";
+import authRoutes from "./routes/auth";
+import userRoutes from "./routes/users";
+import eventRoutes from "./routes/events";
+import pool from "./config/db";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 5000;
 applyMiddleware(app);
 
 // Routes
+app.use(express.json());
 app.use("/api", authRoutes);
 app.use("/api", eventRoutes);
 app.use("/api", userRoutes);
@@ -21,13 +23,33 @@ app.get("/api/test", async (req, res) => {
     const result = await pool.query("SELECT NOW()");
     res.json({ serverTime: result.rows[0].now });
   } catch (err) {
+    console.error("Database connection error:", err);
     res.status(500).json({ error: "Database connection failed" });
   }
 });
 
+// Error handling middleware
+app.use(
+  (
+    err: Error,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    console.error(err.stack);
+    res.status(500).json({ error: "Something went wrong!" });
+  }
+);
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
+});
+
+// Handle unhandled promise rejections
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled Rejection:", err);
+  process.exit(1);
 });
 
 // // server/server.jsx

@@ -1,7 +1,23 @@
-import pool from "../config/db.js";
+import { Request, Response } from "express";
+import pool from "../config/db";
 import bcrypt from "bcryptjs";
 
-export const signup = async (req, res) => {
+interface User {
+  id: number;
+  username: string;
+  password: string;
+}
+
+interface AuthRequest extends Request {
+  body: {
+    username?: string;
+    password?: string;
+    device?: string;
+    user_id?: number;
+  };
+}
+
+export const signup = async (req: AuthRequest, res: Response) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -11,7 +27,7 @@ export const signup = async (req, res) => {
   }
 
   try {
-    const existing = await pool.query(
+    const existing = await pool.query<User>(
       "SELECT * FROM users WHERE username = $1",
       [username]
     );
@@ -33,7 +49,7 @@ export const signup = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {
+export const login = async (req: AuthRequest, res: Response) => {
   const { username, password, device = "unknown" } = req.body;
 
   if (!username || !password) {
@@ -41,9 +57,10 @@ export const login = async (req, res) => {
   }
 
   try {
-    const result = await pool.query("SELECT * FROM users WHERE username = $1", [
-      username,
-    ]);
+    const result = await pool.query<User>(
+      "SELECT * FROM users WHERE username = $1",
+      [username]
+    );
 
     if (result.rows.length === 0) {
       return res.status(401).json({ error: "Invalid credentials" });
@@ -68,7 +85,7 @@ export const login = async (req, res) => {
   }
 };
 
-export const logout = async (req, res) => {
+export const logout = async (req: AuthRequest, res: Response) => {
   const { user_id, username, device = "unknown" } = req.body;
 
   try {

@@ -1,8 +1,25 @@
-import pool from "../config/db.js";
+import { Request, Response } from "express";
+import pool from "../config/db";
 
-export const getUsers = async (req, res) => {
+interface User {
+  id: number;
+  username: string;
+  created_at?: Date;
+}
+
+interface UserRequest extends Request {
+  body: {
+    username?: string;
+    password?: string;
+  };
+  params: {
+    userId?: string;
+  };
+}
+
+export const getUsers = async (req: Request, res: Response) => {
   try {
-    const result = await pool.query("SELECT id, username FROM users");
+    const result = await pool.query<User>("SELECT id, username FROM users");
     res.json(result.rows);
   } catch (err) {
     console.error(err);
@@ -10,7 +27,7 @@ export const getUsers = async (req, res) => {
   }
 };
 
-export const createUser = async (req, res) => {
+export const createUser = async (req: UserRequest, res: Response) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -18,12 +35,12 @@ export const createUser = async (req, res) => {
   }
 
   try {
-    const result = await pool.query(
+    const result = await pool.query<User>(
       "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id, username",
       [username, password]
     );
     res.status(201).json(result.rows[0]);
-  } catch (err) {
+  } catch (err: any) {
     console.error(err);
     if (err.code === "23505") {
       res.status(409).json({ error: "Username already exists" });
@@ -33,12 +50,11 @@ export const createUser = async (req, res) => {
   }
 };
 
-// Add to controllers/users.js
-export const getUserById = async (req, res) => {
+export const getUserById = async (req: UserRequest, res: Response) => {
   const { userId } = req.params;
 
   try {
-    const result = await pool.query(
+    const result = await pool.query<User>(
       "SELECT id, username, created_at FROM users WHERE id = $1",
       [userId]
     );
