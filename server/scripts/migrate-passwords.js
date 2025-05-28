@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
-import pool from "../config/db.js"; // Updated import path
+import pool from "../config/db.js";
 
 const migratePasswords = async () => {
-  const client = await pool.connect(); // Changed from db to pool
+  const client = await pool.connect();
 
   try {
     const dbCheck = await client.query("SELECT current_database()");
@@ -11,7 +11,7 @@ const migratePasswords = async () => {
     await client.query("BEGIN");
     console.log("Starting password migration...");
 
-    // Find unhashed passwords (modify this query if needed)
+    // Find unhashed passwords
     const { rows } = await client.query(
       `SELECT id, password FROM users 
        WHERE password NOT LIKE '$2a$%' 

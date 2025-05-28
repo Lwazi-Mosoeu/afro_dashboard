@@ -2,18 +2,14 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
+  "type": "commonjs",
   "main": "server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --loader ts-node/esm server.ts",
-    "dev": "nodemon --exec node --loader ts-node/esm server.ts",
+    "start": "tsx server.ts",
+    "dev": "nodemon server.ts",
     "build": "tsc",
-    "serve": "node dist/server.ts"
+    "serve": "node server.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
@@ -21,5 +17,16 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "pg": "^8.15.6"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.5",
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.21",
+    "@types/pg": "^8.15.2",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   }
 }
